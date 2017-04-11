@@ -1,0 +1,104 @@
+
+DROP TABLE IF EXISTS asteroidType;
+DROP TABLE IF EXISTS level;
+DROP TABLE IF EXISTS levelAsteroid;
+DROP TABLE IF EXISTS mainBody;
+DROP TABLE IF EXISTS cannon;
+DROP TABLE IF EXISTS extraPart;
+DROP TABLE IF EXISTS engine;
+DROP TABLE IF EXISTS powerCore;
+
+
+CREATE TABLE asteroidType
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+	image TEXT NOT NULL,
+        imageWidth INTEGER NOT NULL,
+        imageHeight INTEGER NOT NULL,
+        type TEXT NOT NULL
+);
+
+
+CREATE TABLE level
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        number INTEGER NOT NULL,
+	title TEXT NOT NULL,
+	hint TEXT NOT NULL,
+        width INTEGER NOT NULL,
+        height INTEGER NOT NULL,
+	music TEXT NOT NULL
+);
+
+CREATE TABLE levelObject
+(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        position TEXT NOT NULL,
+        objectID INTEGER NOT NULL FOREIGN KEY REFERENCES level(number);
+        scale FLOAT NOT NULL
+);
+
+CREATE TABLE levelAsteroid
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        number INTEGER NOT NULL;
+        asteroidID INTEGER NOT NULL FOREIGN KEY REFERENCES asteroidType(id)
+);
+
+
+CREATE TABLE mainBody
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	cannonAttach TEXT NOT NULL,
+        engineAttach TEXT NOT NULL,
+        extraAttach TEXT NOT NULL,
+        image TEXT NOT NULL,
+        imageWidth INTEGER NOT NULL,
+        imageHeight INTEGER NOT NULL
+);
+
+
+CREATE TABLE cannon
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        attachPoint TEXT NOT NULL,
+        emitPoint TEXT NOT NULL,
+        image TEXT NOT NULL,
+        imageWidth INTEGER NOT NULL,
+        imageHeight INTEGER NOT NULL,
+        attackImage TEXT NOT NULL,
+        attackImageWidth INTEGER NOT NULL,
+        attackImageHeight INTEGER NOT NULL,
+        attackSOUND TEXT NOT NULL,
+        damage INTEGER NOT NULL
+);
+
+CREATE TABLE extraPart
+(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        attachPoint TEXT NOT NULL,
+        image TEXT NOT NULL,
+        imageWidth INTEGER NOT NULL,
+        imageHeight INTEGER NOT NULL
+);
+
+CREATE TABLE engine
+(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        baseSpeed INTEGER NOT NULL,
+        baseTurnRate INTEGER NOT NULL,
+        attachPoint TEXT NOT NULL,
+        image TEXT NOT NULL,
+        imageWidth INTEGER NOT NULL,
+        imageHeight INTEGER NOT NULL
+);
+
+CREATE TABLE powerCore
+(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        cannonBoost INTEGER NOT NULL,
+        engineBoost INTEGER NOT NULL,
+        image TEXT NOT NULL
+);
+
